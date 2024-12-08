@@ -53,10 +53,10 @@ app.use(
 
 app.get('/', (req, res) => {
   const name = process.env.NAME || 'World';
-  res.send(`Hello ${name}!`);
+  res.send(`Hello ${name}! ${req.baseUrl}`);
 });
 
-const port = parseInt(process.env.PORT || '3000', 10);
+const port = parseInt(process.env.PORT! || '3000', 10);
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });

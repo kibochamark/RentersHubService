@@ -41,7 +41,7 @@ app.use(function (error, req, res, next) {
 });
 app.get('/', function (req, res) {
     var name = process.env.NAME || 'World';
-    res.send("Hello ".concat(name, "!"));
+    res.send("Hello ".concat(name, "! ").concat(req.baseUrl));
 });
 var port = parseInt(process.env.PORT || '3000', 10);
 app.listen(port, function () {

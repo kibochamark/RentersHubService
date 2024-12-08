@@ -9,7 +9,12 @@
     pkgs.openssl_3_1.bin
   ];
   # Sets environment variables in the workspace
-  env = {};
+  env = {
+    DATABASE_URL = "mongodb+srv://kibochamark:wEZrXcqXCY1EZq89@renterscluster.frfxh.mongodb.net/renters?retryWrites=true&w=majority&appName=renterscluster";
+    TREBLLE_APP_ID = "XJZsrOVANiXchqY";
+    TREBLLE_API_KEY = "GqEccaFz4wyRBQyvDapv8WjqFZsZH1wN";
+    PORT = "5091";
+  };
   idx = {
     # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
     extensions = [
@@ -21,7 +26,7 @@
         npm-install = "npm ci --no-audit --prefer-offline --no-progress --timing";
       };
       # Runs when a workspace is (re)started
-      onStart= {
+      onStart = {
         run-server = "npm run dev";
       };
     };
