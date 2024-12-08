@@ -40,7 +40,7 @@ app.use(function (error, req, res, next) {
         message: error.message,
     });
 });
-app.use("api/v1/", routes_1.default);
+app.use("/api/v1", routes_1.default);
 var port = parseInt(process.env.PORT || '3000', 10);
 app.listen(port, function () {
     console.log("Listening on port ".concat(port));

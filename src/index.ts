@@ -52,7 +52,7 @@ app.use(
   }
 );
 
-app.use("api/v1/", routes)
+app.use("/api/v1", routes)
 
 const port = parseInt(process.env.PORT! || '3000', 10);
 app.listen(port, () => {
