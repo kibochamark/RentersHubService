@@ -10,10 +10,7 @@
   ];
   # Sets environment variables in the workspace
   env = {
-    DATABASE_URL = "mongodb+srv://kibochamark:wEZrXcqXCY1EZq89@renterscluster.frfxh.mongodb.net/renters?retryWrites=true&w=majority&appName=renterscluster";
-    TREBLLE_APP_ID = "XJZsrOVANiXchqY";
-    TREBLLE_API_KEY = "GqEccaFz4wyRBQyvDapv8WjqFZsZH1wN";
-    PORT = "5091";
+
   };
   idx = {
     # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
