@@ -19,6 +19,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.1",
+    "joi": "^17.13.3",
     "treblle": "^1.5.1"
   },
   "devDependencies": {

@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import { GlobalError } from '../types/errorTypes';
+import routes from './routes/routes';
 
 dotenv.config();
 
@@ -51,10 +52,7 @@ app.use(
   }
 );
 
-app.get('/', (req, res) => {
-  const name = process.env.NAME || 'World';
-  res.send(`Hello ${name}! ${req.baseUrl}`);
-});
+app.use("api/v1/", routes)
 
 const port = parseInt(process.env.PORT! || '3000', 10);
 app.listen(port, () => {

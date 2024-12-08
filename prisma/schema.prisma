@@ -17,8 +17,8 @@ model User {
   id        String  @id @default(auto()) @map("_id") @db.ObjectId
   firstname String  @db.String
   lastname  String  @db.String
-  email     String  @db.String
-  kinde_id  String  @db.String
+  email     String  @db.String @unique
+  kinde_id  String  @db.String @unique
   phone     String  @db.String
   phone2    String? @db.String
   profile   Profile
