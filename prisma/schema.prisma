@@ -1,0 +1,167 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider        = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  firstname String  @db.String
+  lastname  String  @db.String
+  email     String  @db.String
+  kinde_id  String  @db.String
+  phone     String  @db.String
+  phone2    String? @db.String
+  profile   Profile
+  active    Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Property Property[]
+
+  propertySummary landlordpropertySummary[]
+}
+
+type Profile {
+  profileImage String
+  companyinfo  String?
+  shortBio     String?
+}
+
+model PropertyFeatures {
+  id     String  @id @default(auto()) @map("_id") @db.ObjectId
+  name   String  @db.String
+  active Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model PropertyType {
+  id     String  @id @default(auto()) @map("_id") @db.ObjectId
+  name   String  @db.String
+  active Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Property Property[]
+}
+
+model PropertyCategory {
+  id     String  @id @default(auto()) @map("_id") @db.ObjectId
+  name   String  @db.String
+  active Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Property Property[]
+}
+
+type PropertyImage {
+  imageUrl  String
+  createdAt DateTime @default(now())
+}
+
+model Property {
+  id     String  @id @default(auto()) @map("_id") @db.ObjectId
+  name   String  @db.String
+  active Boolean @default(true)
+  featured Boolean @default(true)
+  vacant Boolean @default(true)
+  vacancyCount Int @default(0)
+  rentalprice Float @default(0.00)
+  depostamount Float @default(0.00)
+  watercharges Float @default(0.00)
+  garbagefees Float @default(0.00)
+  electricityfees Float @default(0.00)
+  internetfees Float @default(0.00)
+  
+  propertyType PropertyType @relation(fields: [propertyTypeId], references: [id])
+  propertyTypeId String @db.ObjectId
+  propertyCategory PropertyCategory @relation(fields: [propertyCategoryId], references: [id])
+  propertyCategoryId String @db.ObjectId
+  propertyFeatures String[]
+  propertyImages PropertyImage[]
+
+  // landlord who owns this property
+  user User @relation(fields: [userId], references: [id])
+  userId String @db.ObjectId
+  contactperson String @db.String
+  contactphone String @db.String
+
+  // as of now it will always be renters hub
+  company Company @relation(fields: [companyId], references: [id])
+  companyId String @db.ObjectId
+  description String  @db.String
+  location Location
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+type Location{
+  latitude String
+  longitude String
+  name String
+  state String
+  country String
+  county String
+}
+
+
+
+model Company{
+  id     String  @id @default(auto()) @map("_id") @db.ObjectId
+  name   String  @db.String
+  active Boolean @default(true)
+  sociallinks Sociallinks[]
+  address String  @db.String
+  phone String  @db.String
+  email String  @db.String
+  website String?  @db.String
+  logo String?  @db.String
+  employees Int @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+
+  Property Property[]
+}
+
+
+model landlordpropertySummary{
+  id     String  @id @default(auto()) @map("_id") @db.ObjectId
+  owner  User @relation(fields: [userId], references: [id])
+  userId String @db.ObjectId
+  count  Int @default(0)
+}
+
+
+model companypropertySummary{
+  id     String  @id @default(auto()) @map("_id") @db.ObjectId
+  count  Int @default(0)
+}
+
+
+
+
+type Sociallinks{
+  name String
+  url String
+}
+
+
