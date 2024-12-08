@@ -6,17 +6,17 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import { GlobalError } from '../types/errorTypes';
-import routes from './routes/routes';
+import routes from './routes';
 
 dotenv.config();
 
 const app = express();
 
-// setting up treblle for api monitoring
-useTreblle(app, {
-  apiKey: process.env.TREBLLE_API_KEY!,
-  projectId: process.env.TREBLLE_APP_ID!,
-});
+// // Setting up Treblle for API monitoring
+// useTreblle(app, {
+//   apiKey: process.env.TREBLLE_API_KEY!,
+//   projectId: process.env.TREBLLE_APP_ID!,
+// });
 
 app.use(cors());
 app.use(cookieParser());
@@ -24,7 +24,18 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(compression());
 
-// catch all routes that are not specified in the routes folder
+// Root route
+app.get("/", (req, res) => {
+  res.status(200).json({
+    message: "hello",
+  });
+});
+
+
+// Mount the router to the app with a base path
+app.use('/api/v1', routes); // Now routes will be available under /api
+
+// Catch all routes that are not specified
 app.use('*', (req, res, next) => {
   const error: GlobalError = new Error(`Cannot find ${req.originalUrl} on the server`) as GlobalError;
   error.status = 'fail';
@@ -33,7 +44,7 @@ app.use('*', (req, res, next) => {
   next(error); // Forward the error to the global error handler
 });
 
-// create our global error handler
+// Create global error handler
 app.use(
   (
     error: GlobalError,
@@ -51,8 +62,6 @@ app.use(
     });
   }
 );
-
-app.use("/api/v1", routes)
 
 const port = parseInt(process.env.PORT! || '3000', 10);
 app.listen(port, () => {
