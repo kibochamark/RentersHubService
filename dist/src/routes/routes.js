@@ -15,9 +15,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // routes.patch('/user', userupdate)
 // routes.delete('/users/:id', deleteuser)
 // export default routes
-const express_1 = __importDefault(require("express"));
-const user_1 = require("../controllers/user");
-const routes = express_1.default.Router();
+var express_1 = __importDefault(require("express"));
+var user_1 = require("../controllers/user");
+var routes = express_1.default.Router();
 // Users
 routes.get('/users', user_1.users); // Corrected path
 routes.get('/user/:kinde_id', user_1.userbykinde); // Corrected path
