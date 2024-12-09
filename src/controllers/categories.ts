@@ -13,26 +13,26 @@ const getIdSchema = Joi.object({
 })
 
 // create schema
-const typeSchema = Joi.object({
+const categorySchema = Joi.object({
     name:Joi.string().required(),
 })
 
 // update schema
-const updateTypeSchema =Joi.object({
+const updateCategorySchema =Joi.object({
     id:Joi.string().required(),
-    name:Joi.string().optional(),
+    name:Joi.string().optional()
     
 })
 
-// get all users available 
-export async function propertytypes(req:Request, res:Response, next:NextFunction): Promise<any>{
+// get all categories available 
+export async function propertycategories(req:Request, res:Response, next:NextFunction): Promise<any>{
 
     try{
-        const gettypes = await prisma.propertyType.findMany()
+        const getcategories = await prisma.propertyCategory.findMany()
 
         return res.status(200).json({
             message:"success",
-            data:gettypes
+            data:getcategories
         })
 
     }catch(e:any){
@@ -47,7 +47,7 @@ export async function propertytypes(req:Request, res:Response, next:NextFunction
 
 
 
-export async function propertyTypebyid (req:Request, res:Response, next:NextFunction): Promise<any>{
+export async function propertycategorybyid (req:Request, res:Response, next:NextFunction): Promise<any>{
 
     try{
         const { error, value } = getIdSchema.validate(req.params, { abortEarly: false });
@@ -67,7 +67,7 @@ export async function propertyTypebyid (req:Request, res:Response, next:NextFunc
 
         const { id } = value;
 
-        const getpropertytype = await prisma.propertyType.findUnique({
+        const getcategory = await prisma.propertyCategory.findUnique({
             where:{
                 id
             }
@@ -75,7 +75,7 @@ export async function propertyTypebyid (req:Request, res:Response, next:NextFunc
 
         return res.status(200).json({
             message:"success",
-            data:getpropertytype
+            data:getcategory
         })
 
     }catch(e:any){
@@ -88,13 +88,11 @@ export async function propertyTypebyid (req:Request, res:Response, next:NextFunc
 }
 
 
-
 // mutation apis,,,create , delete and update a user
-
-export async function propertyTypecreate(req:Request, res:Response, next:NextFunction): Promise<any>{
+export async function propertycategorycreate(req:Request, res:Response, next:NextFunction): Promise<any>{
 
     try{
-        const { error, value } = typeSchema.validate(req.body, { abortEarly: false });
+        const { error, value } = categorySchema.validate(req.body, { abortEarly: false });
 
         if (error) {
             statusError = new Error(JSON.stringify(
@@ -109,17 +107,18 @@ export async function propertyTypecreate(req:Request, res:Response, next:NextFun
         }
 
 
-        const { name } = value;
+        const { name} = value;
 
-        const propertyType = await prisma.propertyType.create({
+        const propertycategory = await prisma.propertyCategory.create({
             data:{
                 name
+                
             }
         })
 
         return res.status(201).json({
             message:"success",
-            data:propertyType
+            data:propertycategory
         })
 
     }catch(e:any){
@@ -130,10 +129,11 @@ export async function propertyTypecreate(req:Request, res:Response, next:NextFun
     }
 
 }
-export  async function propertyTypeupdate(req:Request, res:Response, next:NextFunction): Promise<any>{
+
+export  async function propertycategoryupdate(req:Request, res:Response, next:NextFunction): Promise<any>{
 
     try{
-        const { error, value } =updateTypeSchema.validate(req.body, { abortEarly: false });
+        const { error, value } =updateCategorySchema.validate(req.body, { abortEarly: false });
 
         if (error) {
             statusError = new Error(JSON.stringify(
@@ -150,7 +150,7 @@ export  async function propertyTypeupdate(req:Request, res:Response, next:NextFu
 
         const {id,name } = value;
 
-        const propertyType = await prisma.propertyType.update({
+        const propertyCategory = await prisma.propertyCategory.update({
             where:{
                 id
             },
@@ -161,7 +161,7 @@ export  async function propertyTypeupdate(req:Request, res:Response, next:NextFu
 
         return res.status(200).json({
             message:"success",
-            data:propertyType
+            data:propertyCategory
         })
 
     }catch(e:any){
@@ -174,7 +174,7 @@ export  async function propertyTypeupdate(req:Request, res:Response, next:NextFu
 }
 
 
-export async function deletepropertytype(req:Request, res:Response, next:NextFunction): Promise<any>{
+export async function deletepropertycategory(req:Request, res:Response, next:NextFunction): Promise<any>{
 
     try{
         const { error, value } = getIdSchema.validate(req.params, { abortEarly: false });
@@ -194,15 +194,15 @@ export async function deletepropertytype(req:Request, res:Response, next:NextFun
 
         const { id } = value;
 
-        const propertytype =await prisma.propertyType.delete({
+        const category =await prisma.propertyCategory.delete({
             where:{
                 id
             }
         })
-
         return res.status(204).json({
-            propertytype
+            category
         }).end()
+
 
     }catch(e:any){
         statusError.message=e.message
@@ -212,4 +212,7 @@ export async function deletepropertytype(req:Request, res:Response, next:NextFun
     }
 
 }
+
+
+
 

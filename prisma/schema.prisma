@@ -41,6 +41,7 @@ type Profile {
 model PropertyFeatures {
   id     String  @id @default(auto()) @map("_id") @db.ObjectId
   name   String  @db.String
+  description   String  @db.String
   active Boolean @default(true)
 
   createdAt DateTime @default(now())

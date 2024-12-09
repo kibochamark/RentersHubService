@@ -16,6 +16,8 @@
     # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
     extensions = [
       "rangav.vscode-thunder-client"
+      "Postman.postman-for-vscode"
+      "Prisma.prisma"
     ];
     workspace = {
       # Runs when a workspace is first created with this `dev.nix` file

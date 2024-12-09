@@ -110,7 +110,7 @@ export async function userbykinde(req:Request, res:Response, next:NextFunction):
 export async function userbyid (req:Request, res:Response, next:NextFunction): Promise<any>{
 
     try{
-        const { error, value } = getKindeSchema.validate(req.params, { abortEarly: false });
+        const { error, value } = getIdSchema.validate(req.params, { abortEarly: false });
 
         if (error) {
             statusError = new Error(JSON.stringify(
@@ -199,7 +199,7 @@ export async function usercreate(req:Request, res:Response, next:NextFunction): 
 export  async function userupdate(req:Request, res:Response, next:NextFunction): Promise<any>{
 
     try{
-        const { error, value } = userSchema.validate(req.body, { abortEarly: false });
+        const { error, value } = updateUserSchema.validate(req.body, { abortEarly: false });
 
         if (error) {
             statusError = new Error(JSON.stringify(
@@ -249,7 +249,7 @@ export  async function userupdate(req:Request, res:Response, next:NextFunction):
 export async function deleteuser(req:Request, res:Response, next:NextFunction): Promise<any>{
 
     try{
-        const { error, value } = getKindeSchema.validate(req.params, { abortEarly: false });
+        const { error, value } = getIdSchema.validate(req.params, { abortEarly: false });
 
         if (error) {
             statusError = new Error(JSON.stringify(

@@ -27,7 +27,7 @@ app.use(compression());
 // Root route
 app.get("/", (req, res) => {
   res.status(200).json({
-    message: "hello",
+    message: "new data",
   });
 });
 
